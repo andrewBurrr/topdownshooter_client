@@ -9,9 +9,9 @@ class Projectile(pygame.sprite.Sprite):
         projectile_images = projectile_ss.load_grid_images(4, 3)
         self.image = projectile_images[9]
         self.mask = pygame.mask.from_surface(self.image)
+        self.pos = pygame.math.Vector2(x, y)
         self.rect = self.image.get_rect(center=(self.pos.x, self.pos.y))
         self.angle = pygame.math.Vector2(direction).normalize()
-        self.pos = pygame.math.Vector2(x, y)
         self.speed = 7
         self.offset(speed)
 

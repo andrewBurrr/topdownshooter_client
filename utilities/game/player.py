@@ -12,10 +12,9 @@ class AbstractPlayer(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.previous_direction = (0, 0)
         self.velocity = velocity
-        self.angle = 0
+        self.direction = None
 
     def rotate_transform(self, angle):
-        self.angle = angle
         self.image = pygame.transform.rotate(self.player_images[2], angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         self.mask = pygame.mask.from_surface(self.image)
@@ -47,6 +46,6 @@ class Player(AbstractPlayer):
         self.last_shot = pygame.time.get_ticks()
 
     def rotate(self, x, y):
-        angle = pygame.math.Vector2(x, y) - self.rect.center
-        angle = angle.angle_to(pygame.math.Vector2(0, -1))
+        self.direction = pygame.math.Vector2(x, y) - self.rect.center
+        angle = self.direction.angle_to(pygame.math.Vector2(0, -1))
         self.rotate_transform(angle)

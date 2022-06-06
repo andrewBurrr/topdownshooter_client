@@ -45,7 +45,8 @@ class Game:
 
         # bullet collides with player
         projectile_collisions = pygame.sprite.groupcollide(projectiles, players, True, False, self.collide_check)
-        if projectile_collisions is not None:
+        if len(projectile_collisions) != 0:
+            print("oops")
             # TODO projectile hit animation
             # TODO player damage
             pass
@@ -70,7 +71,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     exit(0)
 
-            # TODO get actions
             # get keys pressed
             keys = pygame.key.get_pressed()
             # move player according to keys
@@ -81,10 +81,11 @@ class Game:
             # shoot projectile
             for event in events:
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    projectiles.add(Projectile(player.rect.centerx, player.rect.centery, player.angle, PATH + "/assets/IconsAndParticles.png", 16))
+                    print(f"projectile angle: {player.direction}")
+                    projectiles.add(Projectile(player.rect.centerx, player.rect.centery, player.direction, PATH + "/assets/IconsAndParticles.png", 16))
             # move projectiles
             for projectile in projectiles:
-                projectile.remove()
+                projectile.move()
             self.handle_collision(walls, players, projectiles)
 
             # TODO if game over
